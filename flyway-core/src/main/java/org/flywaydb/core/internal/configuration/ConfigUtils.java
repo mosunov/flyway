@@ -98,6 +98,9 @@ public class ConfigUtils {
     public static final String FAIL_ON_MISSING_LOCATIONS = "flyway.failOnMissingLocations";
     public static final String LOGGERS = "flyway.loggers";
 
+    // Clickhouse-specific
+    public static final String CLICKHOUSE_CLUSTER_NAME = "flyway.clickhouse.clusterName";
+
     // Oracle-specific
     public static final String ORACLE_SQLPLUS = "flyway.oracle.sqlplus";
     public static final String ORACLE_SQLPLUS_WARN = "flyway.oracle.sqlplusWarn";
@@ -322,6 +325,10 @@ public class ConfigUtils {
         }
         if ("FLYWAY_FAIL_ON_MISSING_LOCATIONS".equals(key)) {
             return FAIL_ON_MISSING_LOCATIONS;
+        }
+
+        if ("FLYWAY_CLICKHOUSE_CLUSTER_NAME".equals(key)) {
+            return CLICKHOUSE_CLUSTER_NAME;
         }
 
         // Oracle-specific

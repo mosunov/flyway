@@ -213,6 +213,7 @@
         <version.springjdbc>4.3.30.RELEASE</version.springjdbc>
         <version.sqlite>3.34.0</version.sqlite>
         <version.testcontainers>1.15.3</version.testcontainers>
+        <version.clickhouse-jdbc>0.2.4</version.clickhouse-jdbc>
     </properties>
 
     <dependencyManagement>
@@ -428,6 +429,12 @@
                 <groupId>com.ibm.informix</groupId>
                 <artifactId>jdbc</artifactId>
                 <version>${version.informix}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>ru.yandex.clickhouse</groupId>
+                <artifactId>clickhouse-jdbc</artifactId>
+                <version>${version.clickhouse-jdbc}</version>
                 <optional>true</optional>
             </dependency>
 
