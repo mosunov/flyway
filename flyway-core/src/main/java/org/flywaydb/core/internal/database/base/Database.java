@@ -28,6 +28,7 @@ import org.flywaydb.core.internal.jdbc.StatementInterceptor;
 import org.flywaydb.core.internal.license.Edition;
 import org.flywaydb.core.internal.license.FlywayEditionUpgradeRequiredException;
 import org.flywaydb.core.internal.resource.StringResource;
+import org.flywaydb.core.internal.schemahistory.AppliedMigration;
 import org.flywaydb.core.internal.sqlscript.Delimiter;
 import org.flywaydb.core.internal.sqlscript.SqlScript;
 import org.flywaydb.core.internal.sqlscript.SqlScriptFactory;
@@ -297,6 +298,17 @@ public abstract class Database<C extends Connection> implements Closeable {
     }
 
     public abstract String getRawCreateScript(Table table, boolean baseline);
+
+    public final SqlScript getDeleteScript(SqlScriptFactory sqlScriptFactory, Table table, AppliedMigration appliedMigration) {
+        return sqlScriptFactory.createSqlScript(new StringResource(getRawDeleteScript(table, appliedMigration)), false, null);
+    }
+
+    protected String getRawDeleteScript(Table table, AppliedMigration appliedMigration) {
+        return "DELETE FROM " + table + " WHERE " + quote("success") + " = " + getBooleanFalse() + " AND " +
+                        (appliedMigration.getVersion() != null ?
+                        quote("version") + " = '" + appliedMigration.getVersion().getVersion() + "'" :
+                        quote("description") + " = '" + appliedMigration.getDescription() + "'");
+    }
 
     public String getInsertStatement(Table table) {
         return "INSERT INTO " + table
