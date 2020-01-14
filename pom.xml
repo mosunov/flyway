@@ -200,6 +200,7 @@
         <version.sqlite>3.30.1</version.sqlite>
         <version.sybasejconnect>7.07</version.sybasejconnect>
         <version.testcontainers>1.14.3</version.testcontainers>
+        <version.clickhouse-jdbc>0.2.4</version.clickhouse-jdbc>
     </properties>
 
     <dependencyManagement>
@@ -404,6 +405,12 @@
                 <groupId>com.ibm.informix</groupId>
                 <artifactId>jdbc</artifactId>
                 <version>${version.informix}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>ru.yandex.clickhouse</groupId>
+                <artifactId>clickhouse-jdbc</artifactId>
+                <version>${version.clickhouse-jdbc}</version>
                 <optional>true</optional>
             </dependency>
 
