@@ -247,6 +247,7 @@ public class ClassicConfiguration implements Configuration {
      * @param baselineOnMigrate {@code true} if baseline should be called on migrate for non-empty schemas, {@code false} if not. (default: {@code false})
      */
     private boolean baselineOnMigrate;
+    private String clickhouseClusterName;
     /**
      * -- SETTER --
      * Allows migrations to be run "out of order".
@@ -354,6 +355,11 @@ public class ClassicConfiguration implements Configuration {
     @Override
     public Location[] getLocations() {
         return locations.getLocations().toArray(new Location[0]);
+    }
+
+    @Override
+    public String getClickhouseClusterName() {
+        return clickhouseClusterName;
     }
 
     @Override
@@ -927,6 +933,13 @@ public class ClassicConfiguration implements Configuration {
     }
 
     /**
+     * For usage with more then one replic into the Clickhouse DB
+     */
+    public void setClickhouseClusterName(String clickhouseClusterName) {
+        this.clickhouseClusterName = clickhouseClusterName;
+    }
+
+    /**
      * Whether Flyway should skip actually executing the contents of the migrations and only update the schema history table.
      * This should be used when you have applied a migration manually (via executing the sql yourself, or via an IDE), and
      * just want the schema history table to reflect this.
@@ -1173,6 +1186,7 @@ public class ClassicConfiguration implements Configuration {
         setLoggers(configuration.getLoggers());
         setBaselineDescription(configuration.getBaselineDescription());
         setBaselineOnMigrate(configuration.isBaselineOnMigrate());
+        setClickhouseClusterName(configuration.getClickhouseClusterName());
         setBaselineVersion(configuration.getBaselineVersion());
         setCallbacks(configuration.getCallbacks());
         setCleanDisabled(configuration.isCleanDisabled());
@@ -1399,6 +1413,10 @@ public class ClassicConfiguration implements Configuration {
         Boolean baselineOnMigrateProp = removeBoolean(props, ConfigUtils.BASELINE_ON_MIGRATE);
         if (baselineOnMigrateProp != null) {
             setBaselineOnMigrate(baselineOnMigrateProp);
+        }
+        String clickhouseClusterNameProp = props.remove(ConfigUtils.CLICKHOUSE_CLUSTER_NAME);
+        if (clickhouseClusterNameProp != null) {
+            setClickhouseClusterName(clickhouseClusterNameProp);
         }
         Boolean validateMigrationNamingProp = removeBoolean(props, ConfigUtils.VALIDATE_MIGRATION_NAMING);
         if (validateMigrationNamingProp != null) {
