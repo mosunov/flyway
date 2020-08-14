@@ -183,7 +183,7 @@
         <version.springjdbc>5.3.19</version.springjdbc>
         <version.sqlite>3.34.0</version.sqlite>
         <version.testcontainers>1.15.3</version.testcontainers>
-        <version.clickhouse-jdbc>0.2.3</version.clickhouse-jdbc>
+        <version.clickhouse-jdbc>0.2.4</version.clickhouse-jdbc>
     </properties>
 
     <dependencyManagement>
