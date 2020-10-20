@@ -67,6 +67,26 @@ public class FluentConfiguration implements Configuration {
         return this;
     }
 
+    @Override
+    public boolean isReplicated() {
+        return config.isReplicated();
+    }
+
+    @Override
+    public String getClusterName() {
+        return config.getClusterName();
+    }
+
+    @Override
+    public String getReplica() {
+        return config.getReplica();
+    }
+
+    @Override
+    public String getZookeeperTable() {
+        return config.getZookeeperTable();
+    }
+
     /**
      * Sets the stream where to output the SQL statements of a migration dry run. {@code null} to execute the SQL statements
      * directly against the database. The stream when be closing when Flyway finishes writing the output.

@@ -97,6 +97,13 @@ public class ConfigUtils {
     public static final String LOGGERS = "flyway.loggers";
     public static final String KERBEROS_CONFIG_FILE = "flyway.kerberosConfigFile";
 
+    // Clickhouse-specific
+    public static final String REPLICATED = "flyway.clickhouse.replicated";
+    public static final String CLUSTER_NAME = "flyway.clickhouse.clusterName";
+    public static final String REPLICA = "flyway.clickhouse.replica";
+    public static final String ZOOKEEPER_TABLE = "flyway.clickhouse.zookeeperTable";
+
+
     // Oracle-specific
     public static final String ORACLE_SQLPLUS = "flyway.oracle.sqlplus";
     public static final String ORACLE_SQLPLUS_WARN = "flyway.oracle.sqlplusWarn";
@@ -312,6 +319,23 @@ public class ConfigUtils {
         }
         if ("FLYWAY_KERBEROS_CONFIG_FILE".equals(key)) {
             return KERBEROS_CONFIG_FILE;
+        }
+
+        // Clickhouse-specific
+        if ("FLYWAY_CLICKHOUSE_REPLICATED".equals(key)) {
+            return REPLICATED;
+        }
+
+        if ("FLYWAY_CLICKHOUSE_CLUSTER_NAME".equals(key)) {
+            return CLUSTER_NAME;
+        }
+
+        if ("FLYWAY_CLICKHOUSE_REPLICA".equals(key)) {
+            return REPLICA;
+        }
+
+        if ("FLYWAY_ZOOKEEPER_TABLE".equals(key)) {
+            return ZOOKEEPER_TABLE;
         }
 
         // Oracle-specific

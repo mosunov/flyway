@@ -247,6 +247,15 @@ public class ClassicConfiguration implements Configuration {
      * @param baselineOnMigrate {@code true} if baseline should be called on migrate for non-empty schemas, {@code false} if not. (default: {@code false})
      */
     private boolean baselineOnMigrate;
+
+    private boolean replicated;
+
+    private String clusterName;
+
+    private String replica;
+
+    private String zookeeperTable;
+
     /**
      * -- SETTER --
      * Allows migrations to be run "out of order".
@@ -354,6 +363,26 @@ public class ClassicConfiguration implements Configuration {
     @Override
     public Location[] getLocations() {
         return locations.getLocations().toArray(new Location[0]);
+    }
+
+    @Override
+    public boolean isReplicated() {
+        return replicated;
+    }
+
+    @Override
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    @Override
+    public String getReplica() {
+        return replica;
+    }
+
+    @Override
+    public String getZookeeperTable() {
+        return zookeeperTable;
     }
 
     @Override
@@ -944,6 +973,22 @@ public class ClassicConfiguration implements Configuration {
 
     }
 
+    public void setReplicated(boolean replicated) {
+        this.replicated = replicated;
+    }
+
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
+
+    public void setReplica(String replica) {
+        this.replica = replica;
+    }
+
+    public void setZookeeperTable(String zookeeperTable) {
+        this.zookeeperTable = zookeeperTable;
+    }
+
     /**
      * Set the callbacks for lifecycle notifications.
      *
@@ -1173,6 +1218,10 @@ public class ClassicConfiguration implements Configuration {
         setLoggers(configuration.getLoggers());
         setBaselineDescription(configuration.getBaselineDescription());
         setBaselineOnMigrate(configuration.isBaselineOnMigrate());
+        setReplicated(configuration.isReplicated());
+        setClusterName(configuration.getClusterName());
+        setReplica(configuration.getReplica());
+        setZookeeperTable(configuration.getZookeeperTable());
         setBaselineVersion(configuration.getBaselineVersion());
         setCallbacks(configuration.getCallbacks());
         setCleanDisabled(configuration.isCleanDisabled());
@@ -1399,6 +1448,25 @@ public class ClassicConfiguration implements Configuration {
         Boolean baselineOnMigrateProp = removeBoolean(props, ConfigUtils.BASELINE_ON_MIGRATE);
         if (baselineOnMigrateProp != null) {
             setBaselineOnMigrate(baselineOnMigrateProp);
+        }
+        Boolean replicatedProp = removeBoolean(props, ConfigUtils.REPLICATED);
+        if (replicatedProp != null) {
+            setReplicated(replicatedProp);
+        }
+
+        String clusterNameProp = props.remove(ConfigUtils.CLUSTER_NAME);
+        if (clusterNameProp != null) {
+            setClusterName(clusterNameProp);
+        }
+
+        String replicaProp = props.remove(ConfigUtils.REPLICA);
+        if (replicaProp != null) {
+            setReplica(replicaProp);
+        }
+
+        String zookeeperTableProp = props.remove(ConfigUtils.ZOOKEEPER_TABLE);
+        if (zookeeperTableProp != null) {
+            setZookeeperTable(zookeeperTableProp);
         }
         Boolean validateMigrationNamingProp = removeBoolean(props, ConfigUtils.VALIDATE_MIGRATION_NAMING);
         if (validateMigrationNamingProp != null) {
