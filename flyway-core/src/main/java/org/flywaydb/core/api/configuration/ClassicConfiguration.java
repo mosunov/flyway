@@ -248,13 +248,10 @@ public class ClassicConfiguration implements Configuration {
      */
     private boolean baselineOnMigrate;
 
-    private boolean replicated;
-
-    private String clusterName;
-
-    private String replica;
-
-    private String zookeeperTable;
+    /**
+     * For usage with more then one replic into the Clickhouse DB
+     */
+    private String clickhouseClusterName;
 
     /**
      * -- SETTER --
@@ -366,23 +363,8 @@ public class ClassicConfiguration implements Configuration {
     }
 
     @Override
-    public boolean isReplicated() {
-        return replicated;
-    }
-
-    @Override
-    public String getClusterName() {
-        return clusterName;
-    }
-
-    @Override
-    public String getReplica() {
-        return replica;
-    }
-
-    @Override
-    public String getZookeeperTable() {
-        return zookeeperTable;
+    public String getClickhouseClusterName() {
+        return clickhouseClusterName;
     }
 
     @Override
@@ -973,20 +955,11 @@ public class ClassicConfiguration implements Configuration {
 
     }
 
-    public void setReplicated(boolean replicated) {
-        this.replicated = replicated;
-    }
-
-    public void setClusterName(String clusterName) {
-        this.clusterName = clusterName;
-    }
-
-    public void setReplica(String replica) {
-        this.replica = replica;
-    }
-
-    public void setZookeeperTable(String zookeeperTable) {
-        this.zookeeperTable = zookeeperTable;
+    /**
+     * For usage with more then one replic into the Clickhouse DB
+     */
+    public void setClickhouseClusterName(String clickhouseClusterName) {
+        this.clickhouseClusterName = clickhouseClusterName;
     }
 
     /**
@@ -1218,10 +1191,7 @@ public class ClassicConfiguration implements Configuration {
         setLoggers(configuration.getLoggers());
         setBaselineDescription(configuration.getBaselineDescription());
         setBaselineOnMigrate(configuration.isBaselineOnMigrate());
-        setReplicated(configuration.isReplicated());
-        setClusterName(configuration.getClusterName());
-        setReplica(configuration.getReplica());
-        setZookeeperTable(configuration.getZookeeperTable());
+        setClickhouseClusterName(configuration.getClickhouseClusterName());
         setBaselineVersion(configuration.getBaselineVersion());
         setCallbacks(configuration.getCallbacks());
         setCleanDisabled(configuration.isCleanDisabled());
@@ -1449,24 +1419,10 @@ public class ClassicConfiguration implements Configuration {
         if (baselineOnMigrateProp != null) {
             setBaselineOnMigrate(baselineOnMigrateProp);
         }
-        Boolean replicatedProp = removeBoolean(props, ConfigUtils.REPLICATED);
-        if (replicatedProp != null) {
-            setReplicated(replicatedProp);
-        }
 
-        String clusterNameProp = props.remove(ConfigUtils.CLUSTER_NAME);
-        if (clusterNameProp != null) {
-            setClusterName(clusterNameProp);
-        }
-
-        String replicaProp = props.remove(ConfigUtils.REPLICA);
-        if (replicaProp != null) {
-            setReplica(replicaProp);
-        }
-
-        String zookeeperTableProp = props.remove(ConfigUtils.ZOOKEEPER_TABLE);
-        if (zookeeperTableProp != null) {
-            setZookeeperTable(zookeeperTableProp);
+        String clickhouseClusterNameProp = props.remove(ConfigUtils.CLICKHOUSE_CLUSTER_NAME);
+        if (clickhouseClusterNameProp != null) {
+            setClickhouseClusterName(clickhouseClusterNameProp);
         }
         Boolean validateMigrationNamingProp = removeBoolean(props, ConfigUtils.VALIDATE_MIGRATION_NAMING);
         if (validateMigrationNamingProp != null) {
