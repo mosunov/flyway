@@ -59,7 +59,6 @@ public class DriverDataSource implements DataSource {
         MYSQL_GOOGLE("jdbc:google:", "com.mysql.jdbc.GoogleDriver"),
         ORACLE("jdbc:oracle", "oracle.jdbc.OracleDriver"),
         POSTGRESQL("jdbc:postgresql:", "org.postgresql.Driver"),
-        CLICKHOUSE("jdbc:clickhouse:", "ru.yandex.clickhouse.ClickHouseDriver"),
         REDSHIFT("jdbc:redshift:", "com.amazon.redshift.jdbc42.Driver"),
         SAPHANA("jdbc:sap:", "com.sap.db.jdbc.Driver"),
         SNOWFLAKE("jdbc:snowflake:", "net.snowflake.client.jdbc.SnowflakeDriver"),
