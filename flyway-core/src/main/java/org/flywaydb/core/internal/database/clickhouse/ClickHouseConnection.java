@@ -31,12 +31,12 @@ public class ClickHouseConnection extends Connection<ClickHouseDatabase> {
 
     @Override
     protected String getCurrentSchemaNameOrSearchPath() throws SQLException {
-        return getJdbcTemplate().getConnection().getCatalog();
+        return getJdbcTemplate().getConnection().getSchema();
     }
 
     @Override
     public void doChangeCurrentSchemaOrSearchPathTo(String schema) throws SQLException {
-        getJdbcTemplate().getConnection().setCatalog(schema);
+        getJdbcTemplate().getConnection().setSchema(schema);
     }
 
     @Override
